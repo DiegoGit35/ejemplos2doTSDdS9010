@@ -1,5 +1,5 @@
 import 'package:ejemplos_2do_soft_9010/default_theme.dart';
-import 'package:ejemplos_2do_soft_9010/memory_game/memory_game_bloc.dart';
+import 'package:ejemplos_2do_soft_9010/memory_game/memory_game_cubit.dart';
 import 'package:ejemplos_2do_soft_9010/routes.dart';
 import 'package:flutter/material.dart';
 
