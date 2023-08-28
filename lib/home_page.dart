@@ -1,3 +1,5 @@
+import 'package:ejemplos_2do_soft_9010/main.dart';
+import 'package:ejemplos_2do_soft_9010/routes.dart';
 import 'package:flutter/material.dart';
 
 class MenuPage extends StatelessWidget {
@@ -14,7 +16,12 @@ class MenuPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(onPressed: () => (), child: const Text('Memoria'))
+            ElevatedButton(
+                onPressed: () {
+                  memoryGameCubit.initGame();
+                  examples2ndRouter.goNamed(Pages.memoryGame.name);
+                },
+                child: const Text('Memoria'))
           ],
         ),
       ),

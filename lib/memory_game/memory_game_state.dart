@@ -15,7 +15,7 @@ class MemoryGameState extends Equatable {
       this.secondTileIndex});
 
   @override
-  List<Object?> get props => [status];
+  List<Object?> get props => [status, error, firstTileIndex, secondTileIndex];
 
   MemoryGameState copyWith({
     MemoryGameStatus? status,
