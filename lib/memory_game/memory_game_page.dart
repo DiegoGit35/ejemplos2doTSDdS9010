@@ -52,15 +52,22 @@ class MemoryGamePage extends StatelessWidget {
                       //     "$index -- ${aTile.isUncovered} // ${aTile.tileIndex}");
                       return Container(
                           decoration: BoxDecoration(
-                              color: aTile.isUncovered
-                                  ? context
-                                      .read<MemoryGameCubit>()
-                                      .boardTiles[aTile.tileIndex]
-                                  : Colors.transparent,
+
+                              // color: aTile.isUncovered
+                              //     ? context
+                              //         .read<MemoryGameCubit>()
+                              //         .boardTiles[aTile.tileIndex]
+                              //     : Colors.transparent,
                               border: Border.all(color: Colors.black)),
                           child: SizedBox.expand(
                             child: ElevatedButton(
-                              child: const Text(''),
+                              child: Text(
+                                aTile.isUncovered
+                                    ? context
+                                        .read<MemoryGameCubit>()
+                                        .boardTiles[aTile.tileIndex]
+                                    : "",
+                              ),
                               onPressed: () {
                                 context
                                     .read<MemoryGameCubit>()

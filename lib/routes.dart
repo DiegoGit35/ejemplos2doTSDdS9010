@@ -1,11 +1,12 @@
 import 'package:ejemplos_2do_soft_9010/home_page.dart';
+import 'package:ejemplos_2do_soft_9010/layout_constraints.dart';
 import 'package:ejemplos_2do_soft_9010/main.dart';
 import 'package:ejemplos_2do_soft_9010/memory_game/memory_game_cubit.dart';
 import 'package:ejemplos_2do_soft_9010/memory_game/memory_game_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-enum Pages { menu, memoryGame }
+enum Pages { menu, memoryGame, ejLayoutBuilder }
 
 GoRouter examples2ndRouter =
     GoRouter(debugLogDiagnostics: true, initialLocation: '/', routes: [
@@ -22,6 +23,13 @@ GoRouter examples2ndRouter =
           builder: (context, state) {
             return BlocProvider<MemoryGameCubit>.value(
                 value: memoryGameCubit, child: const MemoryGamePage());
+          },
+        ),
+        GoRoute(
+          name: Pages.ejLayoutBuilder.name,
+          path: 'ejLayoutBuilder',
+          builder: (context, state) {
+            return const LayoutConstraintsExamplePage();
           },
         ),
       ])

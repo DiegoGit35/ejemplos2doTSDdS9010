@@ -2,21 +2,31 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:ejemplos_2do_soft_9010/memory_game/memory_game_domain.dart';
 import 'package:ejemplos_2do_soft_9010/memory_game/memory_game_state.dart';
-import 'package:flutter/material.dart';
 
 class MemoryGameCubit extends Cubit<MemoryGameState> {
   int? firstTileSelectedIfAny;
   int? secondTileSelectedIfAny;
   int points = 0;
-  final List<Color> boardTiles = [
-    Colors.black,
-    Colors.orange,
-    Colors.yellow,
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.brown,
-    Colors.grey
+  // final List<Color> boardTiles = [
+  //   Colors.black,
+  //   Colors.orange,
+  //   Colors.yellow,
+  //   Colors.red,
+  //   Colors.blue,
+  //   Colors.green,
+  //   Colors.brown,
+  //   Colors.grey
+  // ];
+
+  final List<String> boardTiles = [
+    "black",
+    "orange",
+    "yellow",
+    "red",
+    "blue",
+    "green",
+    "brown",
+    "grey"
   ];
   List<MemoryGameTile> board = [];
   MemoryGameCubit()
