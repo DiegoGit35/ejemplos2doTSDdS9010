@@ -32,7 +32,7 @@ class MenuPage extends StatelessWidget {
                   // memoryGameCubit.initGame();
                   examples2ndRouter.goNamed(Pages.tictactoe.name);
                 },
-                child: const Text('Memoria')),
+                child: const Text('TaTeTi')),
           ],
         ),
       ),
