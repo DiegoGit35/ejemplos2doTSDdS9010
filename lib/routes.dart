@@ -38,6 +38,9 @@ GoRouter examples2ndRouter =
           name: Pages.tictactoe.name,
           path: 'tictactoe',
           builder: (context, state) {
+            //Acá indicamos que debe crearse una nueva instancia del widget (la pantalla)  TicTacToePage
+            // y que esta estará observando a titactoeGameCubit, el cual es una instancia
+            // de TicTacToeGame (el cual es una subclase de Cubit)
             return BlocProvider<TicTacToeGame>.value(
                 value: titactoeGameCubit, child: const TicTacToePage());
           },
