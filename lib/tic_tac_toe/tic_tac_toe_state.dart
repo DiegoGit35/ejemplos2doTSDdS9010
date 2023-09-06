@@ -17,7 +17,5 @@ class TicTacToeFirstState extends TicTacToeState {
       : super(status: TicTacToeStatus.first);
 
   @override
-  List<Object?> get props => [
-        status,
-      ];
+  List<Object?> get props => [status, board, currentPlayer];
 }

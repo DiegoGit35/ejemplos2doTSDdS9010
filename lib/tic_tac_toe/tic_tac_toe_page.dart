@@ -40,7 +40,7 @@ class TicTacToePage extends StatelessWidget {
                             mainAxisSpacing: 4.0),
                     itemBuilder: (BuildContext context, int index) {
                       String cell = context.watch<TicTacToeGame>().board[index];
-                      print(cell);
+
                       // print(
                       //     "$index -- ${aTile.isUncovered} // ${aTile.tileIndex}");
                       return Container(
