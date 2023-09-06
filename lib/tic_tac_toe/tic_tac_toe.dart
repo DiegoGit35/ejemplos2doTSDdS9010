@@ -5,14 +5,15 @@ class TicTacToeGame extends Cubit<TicTacToeState> {
   String currentPlayer = '';
   List<String> board = ['', '', '', '', '', '', '', '', ''];
   TicTacToeGame()
-      : super(const TicTacToeState(
-          status: TicTacToeStatus.first,
-        ));
+      : super(const TicTacToeFirstState(
+            board: ['', '', '', '', '', '', '', '', ''], currentPlayer: 'X'));
 
   initGame() {}
 
   selectCell(int pos) {
     board[pos] = currentPlayer;
     currentPlayer = currentPlayer == 'X' ? 'O' : 'X';
+
+    emit(TicTacToeFirstState(board: board, currentPlayer: currentPlayer));
   }
 }
