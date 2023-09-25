@@ -3,12 +3,14 @@ import 'package:ejemplos_2do_soft_9010/layout_constraints.dart';
 import 'package:ejemplos_2do_soft_9010/main.dart';
 import 'package:ejemplos_2do_soft_9010/memory_game/memory_game_cubit.dart';
 import 'package:ejemplos_2do_soft_9010/memory_game/memory_game_page.dart';
+import 'package:ejemplos_2do_soft_9010/pedidos/presentacion/routes.dart';
 import 'package:ejemplos_2do_soft_9010/tic_tac_toe/tic_tac_toe.dart';
 import 'package:ejemplos_2do_soft_9010/tic_tac_toe/tic_tac_toe_page.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-enum Pages { menu, memoryGame, ejLayoutBuilder, tictactoe }
+enum Pages { menu, memoryGame, ejLayoutBuilder, tictactoe, pedidos }
 
 GoRouter examples2ndRouter =
     GoRouter(debugLogDiagnostics: true, initialLocation: '/', routes: [
@@ -44,6 +46,14 @@ GoRouter examples2ndRouter =
             return BlocProvider<TicTacToeGame>.value(
                 value: titactoeGameCubit, child: const TicTacToePage());
           },
-        )
+        ),
+        GoRoute(
+          name: Pages.pedidos.name,
+          path: 'pedidos',
+          builder: (context, state) {
+            return MaterialApp.router(
+                title: 'Pedidos', routerConfig: pedidosRouter);
+          },
+        ),
       ])
 ]);

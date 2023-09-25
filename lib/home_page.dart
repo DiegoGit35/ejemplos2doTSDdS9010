@@ -33,6 +33,11 @@ class MenuPage extends StatelessWidget {
                   examples2ndRouter.goNamed(Pages.tictactoe.name);
                 },
                 child: const Text('TaTeTi')),
+            ElevatedButton(
+                onPressed: () {
+                  examples2ndRouter.goNamed(Pages.pedidos.name);
+                },
+                child: const Text('Pedidos')),
           ],
         ),
       ),
