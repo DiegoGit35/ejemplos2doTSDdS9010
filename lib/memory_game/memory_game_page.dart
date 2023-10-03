@@ -61,12 +61,12 @@ class MemoryGamePage extends StatelessWidget {
                               border: Border.all(color: Colors.black)),
                           child: SizedBox.expand(
                             child: ElevatedButton(
-                              child: Text(
-                                aTile.isUncovered
+                              child: Container(
+                                color: aTile.isUncovered
                                     ? context
                                         .read<MemoryGameCubit>()
                                         .boardTiles[aTile.tileIndex]
-                                    : "",
+                                    : Colors.transparent,
                               ),
                               onPressed: () {
                                 context
