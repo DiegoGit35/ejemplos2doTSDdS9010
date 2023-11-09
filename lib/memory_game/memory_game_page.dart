@@ -8,17 +8,18 @@ class MemoryGamePage extends StatelessWidget {
   const MemoryGamePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext supercontext) {
+    // final pointsCubit = context.watch<PointsCubit>();
     return BlocConsumer<MemoryGameCubit, MemoryGameState>(
         listener: (listenerContext, state) {
       if (state.status == MemoryGameStatus.success) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        ScaffoldMessenger.of(supercontext).showSnackBar(const SnackBar(
           content: Text('¡Bien!'),
           backgroundColor: Colors.green,
         ));
       }
       if (state.status == MemoryGameStatus.failure) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        ScaffoldMessenger.of(supercontext).showSnackBar(const SnackBar(
           content: Text('¡Lo siento!'),
           backgroundColor: Colors.red,
         ));
@@ -32,25 +33,27 @@ class MemoryGamePage extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: LayoutBuilder(builder: (bodyContext, constraints) {
               return Center(
-                child: SizedBox(
-                  height: constraints.maxHeight,
-                  width: constraints.maxHeight,
-                  child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(4.0),
-                    itemCount: 16,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1.0,
-                            crossAxisCount: 4,
-                            crossAxisSpacing: 4.0,
-                            mainAxisSpacing: 4.0),
-                    itemBuilder: (BuildContext context, int index) {
-                      MemoryGameTile aTile =
-                          context.read<MemoryGameCubit>().board[index];
-                      // print(
-                      //     "$index -- ${aTile.isUncovered} // ${aTile.tileIndex}");
-                      return Container(
+                  child: Column(
+                children: [
+                  SizedBox(
+                    height: constraints.maxWidth,
+                    width: constraints.maxWidth,
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.all(4.0),
+                      itemCount: 16,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 1.0,
+                              crossAxisCount: 4,
+                              crossAxisSpacing: 4.0,
+                              mainAxisSpacing: 4.0),
+                      itemBuilder: (BuildContext context, int index) {
+                        MemoryGameTile aTile =
+                            context.read<MemoryGameCubit>().board[index];
+                        // print(
+                        //     "$index -- ${aTile.isUncovered} // ${aTile.tileIndex}");
+                        return Container(
                           decoration: BoxDecoration(
 
                               // color: aTile.isUncovered
@@ -61,24 +64,32 @@ class MemoryGamePage extends StatelessWidget {
                               border: Border.all(color: Colors.black)),
                           child: SizedBox.expand(
                             child: ElevatedButton(
-                              child: Text(
-                                aTile.isUncovered
-                                    ? context
-                                        .read<MemoryGameCubit>()
-                                        .boardTiles[aTile.tileIndex]
-                                    : "",
-                              ),
+                              child: aTile.isUncovered
+                                  ? Image.asset(
+                                      aTile.imagePath,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const SizedBox(),
                               onPressed: () {
                                 context
                                     .read<MemoryGameCubit>()
                                     .selectTile(index);
                               },
                             ),
-                          ));
-                    },
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              );
+                  Text(
+                    '${supercontext.read<MemoryGameCubit>().points}',
+                    style: const TextStyle(
+                      fontSize: 100,
+                      color: Colors.black26,
+                    ),
+                  )
+                ],
+              ));
             }),
           ));
     });

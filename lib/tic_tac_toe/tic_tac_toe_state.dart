@@ -31,14 +31,18 @@ abstract class TicTacToeState extends Equatable {
 // contiene el tablero y el jugador actual necesario para generar la vista
 // (aunque por el momemto no utilizamos el jugador actual en la vista)
 class TicTacToeFirstState extends TicTacToeState {
+  final int? selected;
   final List<String> board;
   final String currentPlayer;
 
-  const TicTacToeFirstState({required this.board, required this.currentPlayer})
-      : super(status: TicTacToeStatus.first);
+  const TicTacToeFirstState({
+    required this.selected,
+    required this.board,
+    required this.currentPlayer,
+  }) : super(status: TicTacToeStatus.first);
 
   @override
-  List<Object?> get props => [status, board, currentPlayer];
+  List<Object?> get props => [status, board, currentPlayer, selected];
 }
 
 // TicTacToeFirstState es la clase de todas las instancias del "estado de error"

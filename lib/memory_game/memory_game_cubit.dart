@@ -7,41 +7,27 @@ class MemoryGameCubit extends Cubit<MemoryGameState> {
   int? firstTileSelectedIfAny;
   int? secondTileSelectedIfAny;
   int points = 0;
-  // final List<Color> boardTiles = [
-  //   Colors.black,
-  //   Colors.orange,
-  //   Colors.yellow,
-  //   Colors.red,
-  //   Colors.blue,
-  //   Colors.green,
-  //   Colors.brown,
-  //   Colors.grey
-  // ];
 
-  final List<String> boardTiles = [
-    "black",
-    "orange",
-    "yellow",
-    "red",
-    "blue",
-    "green",
-    "brown",
-    "grey"
-  ];
   List<MemoryGameTile> board = [];
   MemoryGameCubit()
       : super(const MemoryGameState(
           status: MemoryGameStatus.initial,
         ));
 
-  initGame() {
+  void initGame({MemoryGameStatus? currentState}) {
     List<int> tileIndexes = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
     board = (tileIndexes..shuffle())
-        .map((e) => MemoryGameTile(tileIndex: e))
+        .map((e) => MemoryGameTile(
+              tileIndex: e,
+              imagePath: "assets/images/${e + 1}.png",
+            ))
         .toList();
+    // board = (tileIndexes..shuffle())
+    //     .map((e) => MemoryGameTile(tileIndex: e))
+    //     .toList();
   }
 
-  selectTile(int selectedTileIndex) {
+  void selectTile(int selectedTileIndex) {
     if (firstTileSelectedIfAny == null) {
       firstTileSelectedIfAny = selectedTileIndex;
       board[firstTileSelectedIfAny!].isUncovered = true;
@@ -65,10 +51,12 @@ class MemoryGameCubit extends Cubit<MemoryGameState> {
         if (board[firstTileSelectedIfAny!].tileIndex ==
             board[secondTileSelectedIfAny!].tileIndex) {
           emit(const MemoryGameState(status: MemoryGameStatus.success));
+          points += 20;
         } else {
           board[firstTileSelectedIfAny!].isUncovered = false;
           board[secondTileSelectedIfAny!].isUncovered = false;
           emit(const MemoryGameState(status: MemoryGameStatus.failure));
+          points -= 5;
         }
 
         firstTileSelectedIfAny = null;
@@ -82,3 +70,8 @@ class MemoryGameCubit extends Cubit<MemoryGameState> {
     }
   }
 }
+
+// class PointsCubit extends Cubit<int> {
+//   PointsCubit() : super(0);
+//   void updatePoints(int gain) => emit(state + gain);
+// }

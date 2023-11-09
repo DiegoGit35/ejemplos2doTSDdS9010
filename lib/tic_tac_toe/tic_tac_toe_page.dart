@@ -12,6 +12,7 @@ class TicTacToePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ticTacToeCubit = context.watch<TicTacToeGame>();
     //El widget BlocConsumer es un widget especial cuya función es
     // observar el comportamiento del cubit, es decir, de observar
     //cada vez que cambia su estado para reflejarlo en la vista,
@@ -58,47 +59,62 @@ class TicTacToePage extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: LayoutBuilder(builder: (bodyContext, constraints) {
                 return Center(
-                  child: SizedBox(
-                    height: constraints.maxHeight,
-                    width: constraints.maxHeight,
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(4.0),
-                      itemCount: 9,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 1.0,
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 4.0,
-                              mainAxisSpacing: 4.0),
-                      itemBuilder: (BuildContext context, int index) {
-                        //Aca tomamos el valor de cada celda el tablero del estado
-                        String cell = state.board[index];
-                        return Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black)),
-                            child: SizedBox.expand(
-                              child: ElevatedButton(
-                                child: Text(
-                                  cell,
-                                  style:
-                                      Theme.of(context).textTheme.displayLarge,
-                                ),
-                                onPressed: () {
-                                  //Acá buscamos un cubit en los widgets superiores (parents)
-                                  //el cual sera el tictactoeCubit  y ejecutamos el método
-                                  //selectCell(), generando, de este modo, un evento al cubit
-                                  //desde la vista
-                                  context
-                                      .read<TicTacToeGame>()
-                                      .selectCell(index);
-                                },
-                              ),
-                            ));
-                      },
+                    child: Column(
+                  children: [
+                    Text(
+                      'Player ${ticTacToeCubit.currentPlayer}',
+                      style: const TextStyle(
+                        color: Colors.black38,
+                        fontSize: 50,
+                      ),
                     ),
-                  ),
-                );
+                    SizedBox(
+                      height: constraints.maxWidth,
+                      width: constraints.maxWidth,
+                      child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(4.0),
+                        itemCount: 9,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 1.0,
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 4.0,
+                                mainAxisSpacing: 4.0),
+                        itemBuilder: (BuildContext context, int index) {
+                          //Aca tomamos el valor de cada celda el tablero del estado
+                          String cell = state.board[index];
+                          return Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: index == state.selected
+                                          ? Colors.redAccent
+                                          : Colors.black,
+                                      width: 5)),
+                              child: SizedBox.expand(
+                                child: ElevatedButton(
+                                  child: Text(
+                                    cell,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayLarge,
+                                  ),
+                                  onPressed: () {
+                                    //Acá buscamos un cubit en los widgets superiores (parents)
+                                    //el cual sera el tictactoeCubit  y ejecutamos el método
+                                    //selectCell(), generando, de este modo, un evento al cubit
+                                    //desde la vista
+                                    context
+                                        .read<TicTacToeGame>()
+                                        .selectCell(index);
+                                  },
+                                ),
+                              ));
+                        },
+                      ),
+                    ),
+                  ],
+                ));
               }),
             ));
       } else {

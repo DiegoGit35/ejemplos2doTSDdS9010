@@ -1,5 +1,9 @@
 class MemoryGameTile {
-  bool isUncovered = false;
+  bool isUncovered;
   int tileIndex;
-  MemoryGameTile({required this.tileIndex});
+  final String imagePath;
+  MemoryGameTile(
+      {required this.tileIndex,
+      required this.imagePath,
+      this.isUncovered = false});
 }
